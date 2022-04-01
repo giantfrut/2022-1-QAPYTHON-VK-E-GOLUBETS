@@ -1,8 +1,8 @@
 import pytest
+
+import constans
 from base import BaseCase
 from ui.locators import basic_locators
-import time
-
 
 
 class TestOne(BaseCase):
@@ -11,16 +11,14 @@ class TestOne(BaseCase):
         self.auth()
         username_wrap = self.find(basic_locators.USERNAME_WRAP).is_displayed()
 
-        assert username_wrap == True
+        assert username_wrap
 
     @pytest.mark.UI
     def test_logout(self):
         self.auth()
         self.click(basic_locators.USERNAME_WRAP)
-        self.find(basic_locators.LOGOUT_BUTTON, timeout=10)
-        time.sleep(5)
         self.click(basic_locators.LOGOUT_BUTTON)
-        assert self.driver.current_url == "https://target.my.com/"
+        assert self.driver.current_url == constans.BASE_URL
 
     @pytest.mark.UI
     def test_edit_contacts(self):

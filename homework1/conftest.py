@@ -1,10 +1,11 @@
 import pytest
+import constans
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 
 def pytest_addoption(parser):
-    parser.addoption('--url', default='https://target.my.com/')
+    parser.addoption('--url', default=constans.BASE_URL)
 
 
 @pytest.fixture()
