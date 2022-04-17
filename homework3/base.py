@@ -22,5 +22,5 @@ class BaseApi:
     def campaign(self, banner_image):
         resp = self.api_client.post_create_campaign(banner_image)
         yield resp['id']
-        self.api_client.post_delete_campaign(resp['id'])
+        self.api_client.delete_campaign(resp['id'])
         assert self.api_client.check_campaign(resp['id'], 'deleted')

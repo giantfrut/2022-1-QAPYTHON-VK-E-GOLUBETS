@@ -1,4 +1,3 @@
-import json
 import logging
 import faker
 import requests
@@ -105,10 +104,9 @@ class ApiClient:
         campaign_payload["banners"][0]["content"]["image_240x400"]["id"] = banner_id
         return self._request("POST", location, json=campaign_payload)
 
-    def post_delete_campaign(self, campaign_id):
-        location = "/api/v2/campaigns/mass_action.json"
-        req_payload = json.dumps([{'id': campaign_id, 'status': 'deleted'}])
-        return self._request("POST", location, data=req_payload, expected_status=204, jsonify=False)
+    def delete_campaign(self, campaign_id):
+        location = f"/api/v2/campaigns/{campaign_id}.json"
+        return self._request("DELETE", location, expected_status=204, jsonify=False)
 
     def get_campaigns_list(self, status=None):
         location = "/api/v2/campaigns.json"

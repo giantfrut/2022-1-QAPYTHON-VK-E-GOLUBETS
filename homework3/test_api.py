@@ -13,7 +13,7 @@ class TestApi(BaseApi):
     @pytest.mark.API
     def test_delete_segment(self):
         segment_id = self.api_client.post_create_segment()['id']
-        resp = self.api_client.delete_segment(segment_id)
+        self.api_client.delete_segment(segment_id)
         assert self.api_client.check_segment_id(segment_id) is False
 
     @pytest.mark.API
