@@ -1,7 +1,6 @@
 import allure
 import logging
 
-
 from ui.locators.locators import BasePageLocators
 from selenium.common.exceptions import StaleElementReferenceException, ElementClickInterceptedException, \
     TimeoutException
@@ -26,7 +25,7 @@ class BasePage(object):
     def find(self, locator, timeout=None):
         return self.wait(timeout).until(EC.presence_of_element_located(locator))
 
-    @allure.step("Click on locator")
+    @allure.step("Click on {locator}")
     def click(self, locator, timeout=None):
         for i in range(CLICK_RETRY):
             try:
@@ -37,9 +36,13 @@ class BasePage(object):
                 if i == CLICK_RETRY - 1:
                     raise
 
-    @allure.step("Send text to locator")
+    @allure.step("Send {text} to {locator}")
     def send_keys(self, locator, text, timeout=None):
         elem = self.find(locator, timeout=timeout)
-        elem.click()
+        self.click(locator)
         elem.clear()
         elem.send_keys(text)
+
+    @allure.step("Check invisibility of {locator}")
+    def check_invisibility(self, locator, timeout=None):
+        return self.wait(timeout).until(EC.invisibility_of_element_located(locator))

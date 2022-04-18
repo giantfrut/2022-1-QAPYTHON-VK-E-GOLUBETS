@@ -83,7 +83,8 @@ def driver(config, temp_dir):
     if selenoid:
         capabilities = {
             'browserName': 'chrome',
-            'version': '98.0',
+            'version': '91.0',
+            'sessionTimeout': '10m'
         }
         if vnc:
             capabilities['enableVNC'] = True

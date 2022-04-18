@@ -46,3 +46,5 @@ class SegmentsPageLocators(AuthorizedPageLocators):
     CHOOSE_SEGMENT_LOCATOR = (By.XPATH, "//a[@title='{name}']")
     DELETE_SEGMENT_LOCATOR = (By.XPATH, "//a[@title='{name}']/ancestor::div/following-sibling::div[4]/span")
     SUBMIT_DELETE_LOCATOR = (By.XPATH, "//button[contains(@class, 'button_confirm-remove')]")
+    PROCESS_DELETE_LOCATOR = (By.XPATH,
+                              "//button[contains(@class, 'button_confirm-remove button_general button_pending')]")

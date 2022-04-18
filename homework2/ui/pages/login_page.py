@@ -7,7 +7,7 @@ from ui.locators.locators import LoginPageLocators
 class LoginPage(BasePage):
     locators = LoginPageLocators()
 
-    @allure.step("Auth to website")
+    @allure.step("Auth to website with email {email} and password {password}")
     def auth(self, email, password):
         self.click(LoginPageLocators.LOGIN_LOCATOR)
         self.send_keys(LoginPageLocators.EMAIL_LOCATOR, email)
