@@ -1,3 +1,5 @@
+import re
+
 import pandas as pd
 import json
 import argparse
@@ -19,9 +21,14 @@ df['bytes'] = df['bytes'].astype('int')
 
 new_df = df['request'].str.split(' ', expand=True)
 new_df.columns = ['method', 'request', 'protocol']
+pattern = re.compile(r"[?#%]")
+new_df['request'] = new_df['request'].str.split(pattern, n=1, expand=True).drop(columns=[1])
 
 df = df.drop(df.columns[[1]], axis=1)
 final_df = pd.concat([df, new_df], axis=1)
+methods = ['GET', 'POST', 'HEAD', 'OPTIONS', 'PUT', 'DELETE', 'TRACE', 'CONNECT', 'PATCH']
+
+final_df = final_df[final_df.method.isin(methods)]
 
 
 def count_request(dataframe):
