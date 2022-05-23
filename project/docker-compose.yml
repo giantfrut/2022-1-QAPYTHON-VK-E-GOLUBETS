@@ -1,0 +1,50 @@
+version: '2.1'
+
+services:
+  db:
+    image: "mysql/mysql-server:8.0"
+    volumes:
+      - /Users/evgenii/PycharmProjects/2022-1-QAPYTHON-VK-E-GOLUBETS/project/application/init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: "vkeducation"
+      MYSQL_ROOT_PASSWORD: PASS
+      MYSQL_USER: test_qa
+      MYSQL_PASSWORD: qa_test
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"-uroot", "-ppass", "ping", "-h", "127.0.0.1" ]
+      timeout: 1s
+      retries: 30
+
+  vkmock:
+    build: ./mock
+    image: mock
+    ports:
+      - "5000:5000"
+
+  myapp:
+    image: myapp
+    volumes:
+      - /Users/evgenii/PycharmProjects/2022-1-QAPYTHON-VK-E-GOLUBETS/project/application:/config
+    entrypoint: /app/myapp --config=/config/myapp_config
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+      vkmock:
+        condition: service_started
+
+  selenoid:
+    image: dumbdumbych/selenium_vnc_chrome_arm64:91.0.b
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: ["-conf", "/etc/selenoid/browsers.json"]
+    ports:
+      - "4444:4444"
+
+networks:
+  default:
+    external: true
+    name: vk-network
