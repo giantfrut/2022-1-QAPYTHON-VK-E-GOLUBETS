@@ -2,6 +2,8 @@
 import json
 import os
 import threading
+import time
+from flask import request
 from werkzeug.serving import WSGIRequestHandler
 
 import settings
@@ -13,7 +15,7 @@ mock_host = os.environ.get('MOCK_HOST', settings.MOCK_HOST)
 mock_port = os.environ.get('MOCK_PORT', settings.MOCK_PORT)
 
 app_data = {}
-task_id_seq = 1
+task_id_seq = 0
 
 
 @app.route('/add_task', methods=['POST'])
@@ -65,7 +67,9 @@ def get_task_description(task_id):
 
 @app.route('/tasks_app/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
+    global task_id_seq
     if task_id in app_data:
+        task_id_seq -= 1
         # get delete information from external system
         try:
             resp = requests.delete(f'http://{mock_host}:{mock_port}/tasks/{task_id}')
@@ -113,6 +117,7 @@ def shutdown_app():
 
 
 def run_app():
+
     server = threading.Thread(target=app.run, kwargs={
         'host': settings.APP_HOST,
         'port': settings.APP_PORT
