@@ -76,19 +76,6 @@ class MysqlClient:
         if fetch:
             return res.fetchone()
 
-    # def select_user(self, username):
-    #     self.session.commit()
-    #     # resp = self.session.query(UsersTest).filter_by(username=username).first()
-    #     # Берем так и не выебываемся, пишем норм тесты
-    #     entry = select(UsersTest).where(UsersTest.username == username)
-    #     return self.execute_query(entry)
-
     def select_db(self, username):
         self.session.commit()
         return self.session.query(UsersTest).filter_by(username=username).first()
-
-    # def delete_user_db(self):
-    #     entry = UsersTest.filter_by(username='giantfrut').delete('giantfrut')
-    #     self.execute_query(entry)
-    #     self.session.commit()
-

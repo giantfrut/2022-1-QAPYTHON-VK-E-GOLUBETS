@@ -1,9 +1,7 @@
-import time
 
 import allure
 import pytest
 from base import BaseCase
-from ui.locators import locators
 
 from ui.locators.locators import AuthorizedPageLocators
 from utils.builder import Builder

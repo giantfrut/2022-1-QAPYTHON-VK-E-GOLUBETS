@@ -1,7 +1,5 @@
 #!/usr/bin/env python3.8
 
-import threading
-
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
@@ -52,19 +50,6 @@ def shutdown():
     return jsonify(f'Ok, mock exiting'), 200
 
 
-# def run_mock():
-#     server = threading.Thread(target=app.run, kwargs={
-#         'host': "127.0.0.1",
-#         'port': "8092"
-#     })
-#
-#     server.start()
-#     return server
-#
-#
-# if __name__ == '__main__':
-#     run_mock()
-#
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

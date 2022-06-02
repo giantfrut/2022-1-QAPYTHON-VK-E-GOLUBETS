@@ -110,19 +110,8 @@ def logger(temp_dir, config):
 
     yield log
 
-
     with open(log_file, 'r') as f:
         allure.attach(f.read(), 'test.log', attachment_type=allure.attachment_type.TEXT)
-
-#
-# @pytest.fixture(scope='session')
-# def credentials(repo_root):
-#     cred_path = os.path.join(repo_root, 'credentials.txt')
-#     with open(cred_path, 'r') as f:
-#         user = f.readline().strip()
-#         password = f.readline().strip()
-#
-#     return user, password
 
 
 @pytest.fixture(scope="function")

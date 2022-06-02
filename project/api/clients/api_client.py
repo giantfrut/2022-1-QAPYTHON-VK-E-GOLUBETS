@@ -46,9 +46,6 @@ class ApiClient:
         headers = headers or self.headers
         self.log_request(url, method, json)
         response = self.session.request(method, url, headers=headers, files=files, data=data, json=json, params=params)
-
-        # if response.status_code != expected_status:
-        #     raise ResponseStatusCodeException(f'Got {response.status_code} {response.request} for URL "{url}"')
         self.log_response(response)
 
         if jsonify:

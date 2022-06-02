@@ -35,18 +35,6 @@ def registration_page(driver, login_page):
     return login_page.go_to_registration_page()
 
 
-@pytest.fixture
-def campaign_page(login):
-    return login.go_to_campaign()
-
-
-@pytest.fixture
-def segments_page(login):
-    return login.go_to_segments()
-
-
-
-
 @pytest.fixture()
 def driver(config, temp_dir):
     browser = config['browser']

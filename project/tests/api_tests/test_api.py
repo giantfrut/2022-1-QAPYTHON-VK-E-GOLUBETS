@@ -31,8 +31,6 @@ class TestApi(BaseApi):
         assert resp.status_code == 200
 
 
-#      "masha sima and zhenya are little funny cute fury kittens"
-
 @allure.feature('API registration tests')
 @pytest.mark.API
 class TestApiRegistration(BaseApi):
